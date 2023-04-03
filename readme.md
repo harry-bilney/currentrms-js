@@ -10,7 +10,7 @@ Installation using the node package manager:
 
 Then...
 
-```
+```javascript
 const rms = require('currentrms-js') // Import the package
 
 const options = {

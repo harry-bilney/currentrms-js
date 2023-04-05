@@ -1,5 +1,5 @@
 const axios = require('axios')
-const Response = require('./errorHandler')
+const Response = require('./Response')
 
 class rms {
     constructor(options) {
@@ -31,9 +31,33 @@ class rms {
             })
         })
     }
+    list(type, modifier) {
+        let options = {
+            method: 'get',
+            url: `${this.endpoint}/${type}`,
+            headers: {
+                'x-subdomain': this.subdomain,
+                'x-auth-token': this.apiKey,
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+            
+        }
+        return new Promise((resolve, reject) => {
+            axios(options)
+           .then(response => {
+                resolve(response.data)
+                console.log(response.data)
+            })
+           .catch(error => {
+                reject(error)
+                console.error(error)
+            })
+        })
+    }
 }
 
-let current = ''
+let current = '' // The current rms instance
 
 function connect(options) {
     current = new rms(options)
@@ -41,6 +65,10 @@ function connect(options) {
     current.connect()
 }
 
+function list(type, modifier='') {
+    current.list(type, modifier)
+}
+
 module.exports = {
-    connect, rms
+    connect, list,  rms
 }

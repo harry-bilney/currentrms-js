@@ -26,3 +26,4 @@ It is recommended to store sensitive information such as the API key in a .env f
 # Currently Implemented
 
 * Connection to the API
+* List different objects
